@@ -319,6 +319,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1100816388 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5595687009167364917, guid: 30937a847108d5442834c718e4ecdc76,
+    type: 3}
+  m_PrefabInstance: {fileID: 5595687009167364914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5595687009167364914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -326,6 +332,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5595687009167364918, guid: 30937a847108d5442834c718e4ecdc76,
+        type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 1100816388}
     - target: {fileID: 5595687011125601025, guid: 30937a847108d5442834c718e4ecdc76,
         type: 3}
       propertyPath: m_Name
@@ -344,7 +355,7 @@ PrefabInstance:
     - target: {fileID: 5595687011125601031, guid: 30937a847108d5442834c718e4ecdc76,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 5595687011125601031, guid: 30937a847108d5442834c718e4ecdc76,
         type: 3}
