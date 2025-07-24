@@ -334,6 +334,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5595687009167364918, guid: 30937a847108d5442834c718e4ecdc76,
         type: 3}
+      propertyPath: jumpForce
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595687009167364918, guid: 30937a847108d5442834c718e4ecdc76,
+        type: 3}
       propertyPath: playerCollider
       value: 
       objectReference: {fileID: 1100816388}
