@@ -10,7 +10,14 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     public float jumpForce;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+    public float groundCheckRadius = 0.2f;
+
+
     private Rigidbody2D rb2D;
+    private bool isGrounded;
+
     private float originalHeight;
     private float crouchHeight = 1.2f;
 
@@ -26,6 +33,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         PlayMovementAnimations(horizontal, vertical);
@@ -43,8 +51,9 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
 
+
         //Move charactor Vertically
-        if (vertical > 0)
+        if (vertical > 0 && isGrounded)
         {
           rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
@@ -64,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        if (vertical > 0)
+        if (vertical > 0 && isGrounded)
         {
             animator.SetTrigger("Jump");
         }
