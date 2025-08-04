@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
         //Move charactor Vertically
         if (vertical > 0 && isGrounded)
         {
-          rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
+            rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
     private void PlayMovementAnimations(float horizontal, float vertical)
@@ -73,10 +74,6 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        if (vertical > 0 && isGrounded)
-        {
-            animator.SetTrigger("Jump");
-        }
     }
 
     private void PlayCrouchAnimation(bool Crouch)
@@ -94,4 +91,19 @@ public class PlayerController : MonoBehaviour
             playerCollider.offset = new Vector2(playerCollider.offset.x, originalHeight / 2);
         }
     }
+    /*private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.transform.tag == "platform")
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.transform.tag == "platform")
+        {
+            isGrounded = false;
+        }
+    }*/
 }
