@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DeadRestartScript : MonoBehaviour
+public class DeathCollider: MonoBehaviour
 {
     public Transform playerTransform;
     public float followSpeed = 5f;
@@ -24,8 +24,8 @@ public class DeadRestartScript : MonoBehaviour
 
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("PlayerDead");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
         }
             
     }
