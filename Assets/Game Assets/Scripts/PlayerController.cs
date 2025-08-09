@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private BoxCollider2D playerCollider;
 
+    public ScoreController scoreController;
     public float speed;
     public float jumpForce;
     public Transform groundCheck;
@@ -56,7 +58,8 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0 && isGrounded)
         {
             animator.SetTrigger("Jump");
-            rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
+            rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
+            //rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
     private void PlayMovementAnimations(float horizontal, float vertical)
@@ -91,19 +94,25 @@ public class PlayerController : MonoBehaviour
             playerCollider.offset = new Vector2(playerCollider.offset.x, originalHeight / 2);
         }
     }
-    /*private void OnCollisionStay2D(Collision2D other)
-    {
-        if (other.transform.tag == "platform")
-        {
-            isGrounded = true;
-        }
-    }
 
-    private void OnCollisionExit2D(Collision2D other)
+    public void PickupKey()
     {
-        if (other.transform.tag == "platform")
-        {
-            isGrounded = false;
-        }
-    }*/
+        Debug.Log("Picked up key ");
+        scoreController.incrementScore(2);
+    }
+    /*private void OnCollisionStay2D(Collision2D other)
+{
+   if (other.transform.tag == "platform")
+   {
+       isGrounded = true;
+   }
+}
+
+private void OnCollisionExit2D(Collision2D other)
+{
+   if (other.transform.tag == "platform")
+   {
+       isGrounded = false;
+   }
+}*/
 }
