@@ -100,19 +100,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Picked up key ");
         scoreController.incrementScore(2);
     }
-    /*private void OnCollisionStay2D(Collision2D other)
-{
-   if (other.transform.tag == "platform")
-   {
-       isGrounded = true;
-   }
-}
 
-private void OnCollisionExit2D(Collision2D other)
-{
-   if (other.transform.tag == "platform")
-   {
-       isGrounded = false;
-   }
-}*/
+    public void KillPlayer()
+    {
+        Debug.Log("Enemy attacked");
+    }
+   
 }
