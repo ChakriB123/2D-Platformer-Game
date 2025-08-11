@@ -9,12 +9,14 @@ public class DeathCollider: MonoBehaviour
 
     void Update()
     {
-        
+        if (playerTransform != null)
+        {
             // Keep current Y, match player’s X
             targetPosition = new Vector2(playerTransform.position.x, transform.position.y);
 
             // Smoothly move the platform to the target position
             transform.position = Vector2.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+        }
       
 
     }
