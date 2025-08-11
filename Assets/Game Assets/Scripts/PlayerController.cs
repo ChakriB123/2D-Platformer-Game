@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
     public float speed;
     public float jumpForce;
+    public int lifes;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckRadius = 0.2f;
@@ -104,6 +106,26 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log("Enemy attacked");
+        Destroy(gameObject);
+        reloadLevel();
     }
-   
+
+    public void reloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void DamagePlayer()
+    {
+        if (lifes < 1)
+        {
+            KillPlayer();
+        }
+        else
+        {
+            lifes--;
+            Debug.Log("lifes after damage:" + lifes);
+        }
+    }
 }
