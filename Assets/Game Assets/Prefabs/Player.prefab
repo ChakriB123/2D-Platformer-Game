@@ -285,10 +285,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fff018cf18d9434bba56b06a0e6b6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deathUIPanel: {fileID: 0}
   scoreController: {fileID: 0}
+  gameOverController: {fileID: 0}
   speed: 3
   jumpForce: 8
-  lifes: 3
   groundCheck: {fileID: 728371384}
   groundLayer:
     serializedVersion: 2

@@ -1,25 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Animator animator;
     private BoxCollider2D playerCollider;
+    private Rigidbody2D playerRigidbody;
+    private Animator playerAnimator;
+    [SerializeField] private Image[] hearts;
+
+    [SerializeField] private GameObject deathUIPanel;
+    private Camera mainCamera;
 
     public ScoreController scoreController;
+    public GameOverController gameOverController;
+    private bool isDead = false;
+
     public float speed;
     public float jumpForce;
-    public int lifes;
+    private int health;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckRadius = 0.2f;
 
-
-    private Rigidbody2D rb2D;
     private bool isGrounded;
 
     private float originalHeight;
@@ -28,11 +31,14 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerCollider =gameObject.GetComponent<BoxCollider2D>();
-        animator = gameObject.GetComponent<Animator>();
-        rb2D = gameObject.GetComponent<Rigidbody2D>();
+        playerAnimator = gameObject.GetComponent<Animator>();
+        playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
     public void Start()
     {
+        health = hearts.Length;
+
+        mainCamera = Camera.main;
         originalHeight = playerCollider.size.y;
     }
     private void Update()
@@ -59,15 +65,15 @@ public class PlayerController : MonoBehaviour
         //Move charactor Vertically
         if (vertical > 0 && isGrounded)
         {
-            animator.SetTrigger("Jump");
-            rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
+            playerAnimator.SetTrigger("Jump");
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
             //rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
     private void PlayMovementAnimations(float horizontal, float vertical)
     {
         
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
         if (horizontal < 0)
         {
@@ -85,13 +91,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Crouch)
         {
-            animator.SetBool("Crouch", true);
+            playerAnimator.SetBool("Crouch", true);
             playerCollider.size = new Vector2(playerCollider.size.x, crouchHeight);
             playerCollider.offset = new Vector2(playerCollider.offset.x, crouchHeight / 2);
         }
         else
         {
-            animator.SetBool("Crouch", false);
+            playerAnimator.SetBool("Crouch", false);
             playerCollider.size = new Vector2(playerCollider.size.x, originalHeight);
             playerCollider.offset = new Vector2(playerCollider.offset.x, originalHeight / 2);
         }
@@ -102,30 +108,39 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Picked up key ");
         scoreController.incrementScore(2);
     }
-
-    public void KillPlayer()
+ 
+    public void DecreaseHealth()
     {
-        Debug.Log("Enemy attacked");
-        Destroy(gameObject);
-        reloadLevel();
-    }
+        health--;
 
-    public void reloadLevel()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
-    }
-
-    public void DamagePlayer()
-    {
-        if (lifes < 1)
+        HandleHealthUI();
+        if (health <= 0)
         {
-            KillPlayer();
-        }
-        else
-        {
-            lifes--;
-            Debug.Log("lifes after damage:" + lifes);
+            PlayDeathAnimation();
+            PlayerDeath();
         }
     }
+
+    public void PlayerDeath()
+    {
+        isDead = true;
+        mainCamera.transform.parent = null;
+       // deathUIPanel.gameObject.SetActive(true);
+        gameOverController.PlayerDied();
+       // playerRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    public void PlayDeathAnimation()
+    {
+        playerAnimator.SetTrigger("Die");
+    }
+
+    public void HandleHealthUI()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].color = (i < health) ? Color.red : Color.black;
+        }
+    }
+
 }
