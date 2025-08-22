@@ -51,6 +51,12 @@ public class PlayerController : MonoBehaviour
         bool isCrouch = Input.GetKey(KeyCode.LeftControl);
         PlayCrouchAnimation(isCrouch);
 
+
+    }
+    private void FixedUpdate()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
         MoveCharacter(horizontal, vertical);
 
     }
@@ -66,8 +72,8 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0 && isGrounded)
         {
             playerAnimator.SetTrigger("Jump");
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
-            //rb2D.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
+           // playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+            playerRigidbody.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
     private void PlayMovementAnimations(float horizontal, float vertical)

@@ -293,7 +293,7 @@ MonoBehaviour:
   scoreController: {fileID: 0}
   gameOverController: {fileID: 0}
   speed: 3
-  jumpForce: 8
+  jumpForce: 5
   groundCheck: {fileID: 728371384}
   groundLayer:
     serializedVersion: 2
