@@ -21,7 +21,8 @@ public class LobbyController : MonoBehaviour
 
     private void playGame()
     {
-        SceneManager.LoadScene(1);
+        LevelManager.Instance.SetLevelStatus("Level1", LevelStatus.Unlocked);
+        SceneManager.LoadScene("Level1");
     }
     private void onLevelSelection()
     {

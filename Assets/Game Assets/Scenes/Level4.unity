@@ -193,7 +193,7 @@ PrefabInstance:
     - target: {fileID: 8376092473864546907, guid: 05f3a2ba8ae13494983d8036a589136e,
         type: 3}
       propertyPath: LoadLevel
-      value: Level1
+      value: Lobby
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05f3a2ba8ae13494983d8036a589136e, type: 3}
