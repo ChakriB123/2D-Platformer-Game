@@ -2670,6 +2670,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeadPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 6316113393516065745, guid: 32084eeda55afbc48acc84b39ff01e79,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32084eeda55afbc48acc84b39ff01e79, type: 3}
 --- !u!1001 &7814150935619617928
