@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         //Move charactor Vertically
         if (vertical > 0 && isGrounded)
         {
+            SoundManager.Instance.play(SoundsEnum.PlayerJump);
             playerAnimator.SetTrigger("Jump");
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
             //playerRigidbody.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);

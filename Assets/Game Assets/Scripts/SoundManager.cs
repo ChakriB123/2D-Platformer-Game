@@ -97,9 +97,11 @@ public class SoundManager : MonoBehaviour
 public enum SoundsEnum
     {
         ButtonClick,
+        KeyPickup,
+        PlayerJump,
         PlayerMove,
         PlayerDead,
-        EnemyDead,
+        EnemyAttack,
         Music,
     }
 
