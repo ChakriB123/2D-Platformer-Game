@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 
@@ -51,7 +48,6 @@ public class SoundManager : MonoBehaviour
         SoundEffect.volume = Volume;
         SoundMusic.volume = Volume;
     }
-
     public void playMusic(SoundsEnum sound)
     {
         if (IsMute)
@@ -70,9 +66,6 @@ public class SoundManager : MonoBehaviour
     }
     public void play(SoundsEnum sound)
     {
-        if (IsMute)
-            return;
-
         AudioClip clip = getAudioClip(sound);
         if (clip != null)
         {
@@ -91,6 +84,7 @@ public class SoundManager : MonoBehaviour
            return item.soundClip;
         return null;
     }
+ 
 
 }
 
@@ -99,7 +93,6 @@ public enum SoundsEnum
         ButtonClick,
         KeyPickup,
         PlayerJump,
-        PlayerMove,
         PlayerDead,
         EnemyAttack,
         Music,

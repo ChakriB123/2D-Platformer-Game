@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
 
     private bool isGrounded;
+    private bool doubleJump;
 
     private float originalHeight;
     private float crouchHeight = 1.2f;
@@ -51,14 +52,13 @@ public class PlayerController : MonoBehaviour
         bool isCrouch = Input.GetKey(KeyCode.LeftControl);
         PlayCrouchAnimation(isCrouch);
 
+        MoveCharacter(horizontal, vertical);
 
     }
     private void FixedUpdate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        MoveCharacter(horizontal, vertical);
-
     }
     private void MoveCharacter(float horizontal, float vertical)
     {
@@ -67,14 +67,21 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
 
+        // for double jump
+        if(isGrounded && !Input.GetButton("Jump") ){
 
+            doubleJump = false;
+        }
         //Move charactor Vertically
-        if (vertical > 0 && isGrounded)
+        if (Input.GetButtonDown("Jump") )
         {
-            SoundManager.Instance.play(SoundsEnum.PlayerJump);
-            playerAnimator.SetTrigger("Jump");
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
-            //playerRigidbody.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
+            if (isGrounded || doubleJump)
+            {
+                SoundManager.Instance.play(SoundsEnum.PlayerJump);
+                playerAnimator.SetTrigger("Jump");
+                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+                doubleJump = !doubleJump;
+            }
         }
     }
     private void PlayMovementAnimations(float horizontal, float vertical)
@@ -85,6 +92,7 @@ public class PlayerController : MonoBehaviour
         if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
+
         }
         else if (horizontal > 0)
         {
