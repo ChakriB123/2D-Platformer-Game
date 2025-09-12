@@ -21,15 +21,18 @@ public class LobbyController : MonoBehaviour
 
     private void playGame()
     {
+        SoundManager.Instance.play(SoundsEnum.ButtonClick);
         LevelManager.Instance.SetLevelStatus("Level1", LevelStatus.Unlocked);
         SceneManager.LoadScene("Level1");
     }
     private void onLevelSelection()
     {
+        SoundManager.Instance.play(SoundsEnum.ButtonClick);
         LevelSelection.SetActive(true);
     }
     public void QuitGame()
     {
+        SoundManager.Instance.play(SoundsEnum.ButtonClick);
         Application.Quit();
     }
 }
